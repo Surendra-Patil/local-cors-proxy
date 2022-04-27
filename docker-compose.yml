@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+    cors:
+        image: surendrapatil/cors-remover
+        container_name: cors-remover
+        ports:
+            - '8014:8014'
+        command: lcp --proxyUrl <ProxyURL> --port 8014 --proxyPartial proxy
+        restart: always
