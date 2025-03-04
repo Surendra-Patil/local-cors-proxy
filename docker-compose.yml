@@ -1,9 +1,18 @@
 version: '3.3'
 services:
     cors:
-        image: surendrapatil/cors-remover-v2
+        image: surendrapatil/cors-remover
         container_name: cors-remover
         ports:
             - '8014:8014'
         command: lcp --proxyUrl <ProxyURL> --port 8014 --proxyPartial proxy
         restart: always
+        # Add resource limits to handle large responses
+        deploy:
+          resources:
+            limits:
+              memory: 1G
+            reservations:
+              memory: 256M
+        environment:
+          - NODE_OPTIONS=--max-http-header-size=32768 --max-old-space-size=1024
